@@ -1,5 +1,5 @@
 import { Component } from 'react';
-import GetSearchImages from './GetSearchImages';
+// import GetSearchImages from './GetSearchImages';
 import Searchbar from './Searchbar/Searchbar';
 import ImageGallery from './ImageGallery/ImageGallery';
 
