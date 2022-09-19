@@ -1,27 +1,50 @@
 import { Component } from 'react';
-// import GetSearchImages from './GetSearchImages';
+import API from './GetSearchImages';
 import Searchbar from './Searchbar/Searchbar';
 import ImageGallery from './ImageGallery/ImageGallery';
+import { ToastContainer } from 'react-toastify';
 
 class App extends Component {
 state = {
   items: [],
-  searchQuery: ''
+  searchQuery: '',
+  currentPage: 1,
 }
 
-handleFormSubmit = searchQuery => {
-  this.setState({ searchQuery });
+componentDidUpdate(_, prevState) {
+  if (prevState.searchQuery !== this.state.searchQuery) {
+    this.GetSearchImages()
+  }
+}
+
+onChangeQuery = query => {
+  this.setState({
+    searchQuery: query,
+    currentPage: 1,
+    items: [],
+
+  });
 };
 
+GetSearchImages = () => {
+  const { currentPage, searchQuery } = this.state;
+  const options = { searchQuery, currentPage };
 
-// componentDidUpdate(prevProps, prevState) {
-// }
+  API.GetSearchImages(options)
+ .then( items => { 
+  this.setState(prevState => ({
+  items: [...prevState.items, ...items],
+  currentPage: prevState.currentPage + 1,
+  }))
+ })
+} 
 
   render() {
   return (
     <div>
-  <Searchbar onSubmit={this.handleFormSubmit}/>
-  <ImageGallery />
+  <Searchbar onSubmit={this.onChangeQuery}/>
+  <ImageGallery items={this.state.items}/>
+  <ToastContainer/>
     </div>
   );
 }
