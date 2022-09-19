@@ -1,4 +1,5 @@
 import { Component } from 'react';
+// import { toast } from 'react-toastify';
 
 
 class Searchbar extends Component {
@@ -8,12 +9,17 @@ state = {
 
 handleSearchQuery = e => {
     this.setState({ searchQuery: e.currentTarget.value.toLowerCase() });
+
   };
 
 handleSubmit = e => {
     e.preventDefault();
 
-    this.props.onSubmit(this.state);
+    if(this.state.searchQuery.trim() === '') {
+    // toast.error('Введіть слово для пошуку зображень!')
+    }
+
+    this.props.onSubmit(this.state.searchQuery);
     this.resetForm();
     console.log(this.state.searchQuery)
   };
