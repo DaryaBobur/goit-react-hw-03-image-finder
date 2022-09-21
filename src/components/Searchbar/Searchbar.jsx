@@ -3,20 +3,19 @@ import { toast } from 'react-toastify';
 
 
 class Searchbar extends Component {
-state = {
+  state = {
     searchQuery: '',
-}
+  }
 
-handleSearchQuery = e => {
+  handleSearchQuery = e => {
     this.setState({ searchQuery: e.currentTarget.value.toLowerCase() });
-
   };
 
-handleSubmit = e => {
+  handleSubmit = e => {
     e.preventDefault();
 
     if(this.state.searchQuery.trim() === '') {
-    toast.error('Введіть слово для пошуку зображень!')
+      toast.error('Введіть слово для пошуку зображень!')
     }
 
     this.props.onSubmit(this.state.searchQuery);
@@ -27,28 +26,28 @@ handleSubmit = e => {
     this.setState({searchQuery: ''});
   }
 
-    render() {
+  render() {
     return (
-        <header>
-      <form onSubmit={this.handleSubmit}>
-    
-        <button type="submit">
-          <span>Search</span>
-        </button>
-    
-        <input
-          type="text"
-          autoComplete="off"
-          autoFocus
-          placeholder="Search images and photos"
-          onChange={this.handleSearchQuery}
-          name="searchQuery"
-          value={this.state.searchQuery}
-        />
-      </form>
-    </header>
+      <header>
+        <form onSubmit={this.handleSubmit}>
+      
+          <button type="submit">
+            <span>Search</span>
+          </button>
+      
+          <input
+            type="text"
+            autoComplete="off"
+            autoFocus
+            placeholder="Search images and photos"
+            onChange={this.handleSearchQuery}
+            name="searchQuery"
+            value={this.state.searchQuery}
+          />
+        </form>
+      </header>
     )
-}
+  }
 }
 
 export default Searchbar;
