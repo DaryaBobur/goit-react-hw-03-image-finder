@@ -55,8 +55,7 @@ class App extends Component {
         }));
       } 
       catch (error) {
-        this.setState({ error: true });
-        console.log(error.message);
+        this.setState({ error });
       } 
       finally {
         this.setState({ isLoading: false });
@@ -93,7 +92,7 @@ class App extends Component {
             marginLeft: 'auto'}}
           />
         }
-
+        
         <ToastContainer 
           autoClose={3000} 
           theme={'colored'}
