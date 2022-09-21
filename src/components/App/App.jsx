@@ -7,7 +7,7 @@ import Button from '../Button/Button';
 
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { MagnifyingGlass } from  'react-loader-spinner';
+import { ThreeDots } from  'react-loader-spinner';
 import { ContainerApp } from './AppStyled';
 
 class App extends Component {
@@ -27,7 +27,7 @@ class App extends Component {
 
     else if(prevState.items !== this.state.items && this.state.items.length === 0) {
       toast.error('Sorry, there are no images matching your search query. Please try again.');
-      return; 
+      return this.state.items === []; 
     }
   }
 
@@ -84,7 +84,7 @@ class App extends Component {
         }
 
         {isLoading && 
-          <MagnifyingGlass 
+          <ThreeDots 
             visible={true} 
             height="150" 
             width="150"
