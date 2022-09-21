@@ -1,6 +1,7 @@
 import { Component } from 'react';
 import { toast } from 'react-toastify';
-
+import { SearchbarContainer, SearchForm, SearchFormButton, SearchFormInput } from './SearchbarStyled';
+import { FaSearch } from "react-icons/fa";
 
 class Searchbar extends Component {
   state = {
@@ -8,16 +9,17 @@ class Searchbar extends Component {
   }
 
   handleSearchQuery = e => {
-    this.setState({ searchQuery: e.currentTarget.value.toLowerCase() });
+    this.setState({ searchQuery: e.currentTarget.value.toLowerCase().trim() });
   };
 
   handleSubmit = e => {
     e.preventDefault();
 
     if(this.state.searchQuery.trim() === '') {
-      toast.error('Введіть слово для пошуку зображень!')
+      toast.error('Please enter a word to search for images!')
+      return;
     }
-
+    
     this.props.onSubmit(this.state.searchQuery);
     this.resetForm();
   };
@@ -28,14 +30,14 @@ class Searchbar extends Component {
 
   render() {
     return (
-      <header>
-        <form onSubmit={this.handleSubmit}>
+      <SearchbarContainer>
+        <SearchForm onSubmit={this.handleSubmit}>
       
-          <button type="submit">
-            <span>Search</span>
-          </button>
+          <SearchFormButton type="submit">
+            <FaSearch fontSize={18}/>
+          </SearchFormButton>
       
-          <input
+          <SearchFormInput
             type="text"
             autoComplete="off"
             autoFocus
@@ -44,8 +46,8 @@ class Searchbar extends Component {
             name="searchQuery"
             value={this.state.searchQuery}
           />
-        </form>
-      </header>
+        </SearchForm>
+      </SearchbarContainer>
     )
   }
 }

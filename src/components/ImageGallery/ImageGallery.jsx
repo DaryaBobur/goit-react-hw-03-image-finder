@@ -1,13 +1,15 @@
 import PropTypes from 'prop-types';
 import ImageGalleryItem from "components/ImageGalleryItem/ImageGalleryItem";
+import { ImageGalleryList } from './ImageGalleryStyled';
+
 
 const ImageGallery =({items}) => {
     return (
-        <ul className="gallery">
+        <ImageGalleryList>
             <ImageGalleryItem 
               items={items}
             />
-        </ul>
+        </ImageGalleryList>
     )  
 }
 

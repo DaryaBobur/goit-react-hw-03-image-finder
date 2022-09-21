@@ -1,14 +1,14 @@
 import { Component } from 'react';
 
-import api from '../services/getSearchImages';
-import Searchbar from './Searchbar/Searchbar';
-import ImageGallery from './ImageGallery/ImageGallery';
-import Button from './Button/Button';
+import api from '../../services/getSearchImages';
+import Searchbar from '../Searchbar/Searchbar';
+import ImageGallery from '../ImageGallery/ImageGallery';
+import Button from '../Button/Button';
 
-import { ToastContainer } from 'react-toastify';
+import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { Vortex } from  'react-loader-spinner';
-
+import { MagnifyingGlass } from  'react-loader-spinner';
+import { ContainerApp } from './AppStyled';
 
 class App extends Component {
   state = {
@@ -24,6 +24,11 @@ class App extends Component {
     if (prevState.searchQuery !== this.state.searchQuery) {
       this.GetSearchImages()
     }
+
+    else if(prevState.items !== this.state.items && this.state.items.length === 0) {
+      toast.error('Sorry, there are no images matching your search query. Please try again.');
+      return; 
+    }
   }
 
   onChangeQuery = query => {
@@ -31,7 +36,6 @@ class App extends Component {
       searchQuery: query,
       currentPage: 1,
       items: [],
-
     });
   };
 
@@ -39,6 +43,7 @@ class App extends Component {
   GetSearchImages = async () => {
     const { currentPage, searchQuery } = this.state;
     const options = { searchQuery, currentPage };
+
       try {
         this.setState({ isLoading: true });
 
@@ -51,15 +56,11 @@ class App extends Component {
       } 
       catch (error) {
         this.setState({ error: true });
-        console.log(error);
+        console.log(error.message);
       } 
       finally {
         this.setState({ isLoading: false });
       }
-  }
-
-  clickPicture =() => {
-    this.setState({ isOpenModal: true });
   }
 
   render() {
@@ -67,7 +68,7 @@ class App extends Component {
     const {onChangeQuery, GetSearchImages} = this;
 
     return (
-      <div>
+      <ContainerApp>
         <Searchbar 
           onSubmit={onChangeQuery}
         />
@@ -83,10 +84,13 @@ class App extends Component {
         }
 
         {isLoading && 
-          <Vortex 
+          <MagnifyingGlass 
             visible={true} 
             height="150" 
             width="150"
+            color='black'
+            wrapperStyle={{marginRight: 'auto',
+            marginLeft: 'auto'}}
           />
         }
 
@@ -95,7 +99,7 @@ class App extends Component {
           theme={'colored'}
         />
 
-      </div>
+      </ContainerApp>
     );
   }
 };

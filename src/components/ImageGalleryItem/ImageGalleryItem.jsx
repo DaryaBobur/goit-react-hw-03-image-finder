@@ -1,11 +1,12 @@
 import PropTypes from 'prop-types';
+import { ImageGalleryCard, Image } from './ImageGalleryItemStyled';
 
 const ImageGalleryItem = ( {items} ) => {
   return (
     items.map(({id, webformatURL, tags}) => (
-      <li key={id}>
-        <img src={webformatURL} alt={tags} />
-      </li>
+      <ImageGalleryCard key={id}>
+        <Image src={webformatURL} alt={tags}/>
+      </ImageGalleryCard>
     ))
   )
 }
