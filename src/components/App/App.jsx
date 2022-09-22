@@ -4,12 +4,13 @@ import api from '../../services/getSearchImages';
 import Searchbar from '../Searchbar/Searchbar';
 import ImageGallery from '../ImageGallery/ImageGallery';
 import Button from '../Button/Button';
+import Modal from 'components/Modal/Modal';
+import Loader from 'components/Loader/Loader';
 
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { ThreeDots } from  'react-loader-spinner';
 import { ContainerApp } from './AppStyled';
-import Modal from 'components/Modal/Modal';
+
 
 class App extends Component {
   state = {
@@ -105,16 +106,7 @@ class App extends Component {
           />
         }
 
-        {isLoading && 
-          <ThreeDots 
-            visible={true} 
-            height="150" 
-            width="150"
-            color='black'
-            wrapperStyle={{marginRight: 'auto',
-            marginLeft: 'auto'}}
-          />
-        }
+        {isLoading && <Loader/>}
         
         {openModal && <Modal onClose={isCloseModal}>
           <img src={modalImg.largeImageURL} alt={modalImg.tags} />
