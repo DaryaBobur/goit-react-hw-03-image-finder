@@ -3,11 +3,12 @@ import ImageGalleryItem from "components/ImageGalleryItem/ImageGalleryItem";
 import { ImageGalleryList } from './ImageGalleryStyled';
 
 
-const ImageGallery =({items}) => {
+const ImageGallery =({ items, onClick }) => {
     return (
         <ImageGalleryList>
             <ImageGalleryItem 
               items={items}
+              onClick={onClick}
             />
         </ImageGalleryList>
     )  
