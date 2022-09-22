@@ -9,6 +9,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { ThreeDots } from  'react-loader-spinner';
 import { ContainerApp } from './AppStyled';
+import Modal from 'components/Modal/Modal';
 
 class App extends Component {
   state = {
@@ -17,7 +18,11 @@ class App extends Component {
     currentPage: 1,
     isLoading: false,
     error: null,
-    isOpenModal: false,
+    openModal: false,
+    modalImg: {
+        largeImageURL: '',
+        tags: ''
+      }
   }
 
   componentDidUpdate(_, prevState) {
@@ -62,9 +67,26 @@ class App extends Component {
       }
   }
 
+  isOpenModal = (modalImg) => {
+    this.setState({
+      openModal: true,
+      modalImg
+    })
+  }
+
+  isCloseModal = () => {
+    this.setState({
+      openModal: false,
+      modalImg: {
+        largeImageURL: '',
+        tags: ''
+      }
+    })
+  }
+
   render() {
-    const {items, isLoading } = this.state;
-    const {onChangeQuery, GetSearchImages} = this;
+    const {items, isLoading, openModal, modalImg } = this.state;
+    const {onChangeQuery, GetSearchImages, isCloseModal, isOpenModal} = this;
 
     return (
       <ContainerApp>
@@ -72,9 +94,10 @@ class App extends Component {
           onSubmit={onChangeQuery}
         />
 
-        <ImageGallery 
-          items={items} 
-        />
+      <ImageGallery
+       items={items}
+       onClick={isOpenModal} 
+      />
 
         {items.length > 0 && 
           <Button 
@@ -93,6 +116,11 @@ class App extends Component {
           />
         }
         
+        {openModal && <Modal onClose={isCloseModal}>
+          <img src={modalImg.largeImageURL} alt={modalImg.tags} />
+        </Modal>
+        }
+
         <ToastContainer 
           autoClose={3000} 
           theme={'colored'}
