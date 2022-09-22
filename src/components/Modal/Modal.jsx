@@ -1,3 +1,5 @@
+import PropTypes from 'prop-types';
+
 import { Component } from "react";
 import { createPortal } from "react-dom"
 import { Overlay, ModalWindow } from "./ModalStyled";
@@ -32,4 +34,9 @@ class Modal extends Component {
   }
 }
 
+Modal.propTypes = {
+onClose: PropTypes.func,
+closeModal: PropTypes.func,
+children: PropTypes.node,
+}
 export default Modal;
