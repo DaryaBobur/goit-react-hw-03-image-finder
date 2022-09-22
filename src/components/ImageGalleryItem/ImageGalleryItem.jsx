@@ -1,10 +1,10 @@
 import PropTypes from 'prop-types';
 import { ImageGalleryCard, Image } from './ImageGalleryItemStyled';
 
-const ImageGalleryItem = ( {items} ) => {
+const ImageGalleryItem = ( { items, onClick } ) => {
   return (
-    items.map(({id, webformatURL, tags}) => (
-      <ImageGalleryCard key={id}>
+    items.map(({id, webformatURL, tags, largeImageURL}) => (
+      <ImageGalleryCard key={id} onClick={() => onClick({largeImageURL, tags})}>
         <Image src={webformatURL} alt={tags}/>
       </ImageGalleryCard>
     ))
