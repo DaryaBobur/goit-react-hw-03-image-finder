@@ -22,8 +22,8 @@ class Modal extends Component {
 
   render() {
     return createPortal(
-      <Overlay className="overlay" onClick={this.closeModal}>
-        <ModalWindow className="modal">
+      <Overlay onClick={this.closeModal}>
+        <ModalWindow>
           {this.props.children}
         </ModalWindow>
       </Overlay>,
